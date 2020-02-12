@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">DesafioGlobo</string>
+    <string name="title_home">Início</string>
+    <string name="title_favorite">Favoritos</string>
+</resources>
