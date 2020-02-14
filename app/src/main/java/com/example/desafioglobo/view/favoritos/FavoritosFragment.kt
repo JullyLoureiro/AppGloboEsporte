@@ -1,4 +1,4 @@
-package com.example.desafioglobo.view.favorites
+package com.example.desafioglobo.view.favoritos
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,20 +10,20 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.example.desafioglobo.R
 
-class FavoriteFragment : Fragment() {
+class FavoritosFragment : Fragment() {
 
-    private lateinit var favoriteViewModel: FavoriteViewModel
+    private lateinit var favoritosViewModel: FavoritosViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        favoriteViewModel =
-            ViewModelProviders.of(this).get(FavoriteViewModel::class.java)
+        favoritosViewModel =
+            ViewModelProviders.of(this).get(FavoritosViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_favorites, container, false)
         val textView: TextView = root.findViewById(R.id.text_dashboard)
-        favoriteViewModel.text.observe(this, Observer {
+        favoritosViewModel.text.observe(this, Observer {
             textView.text = it
         })
         return root

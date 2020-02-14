@@ -1,10 +1,10 @@
-package com.example.desafioglobo.view.favorites
+package com.example.desafioglobo.view.favoritos
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
-class FavoriteViewModel : ViewModel() {
+class FavoritosViewModel : ViewModel() {
 
     private val _text = MutableLiveData<String>().apply {
         value = "This is dashboard Fragment"

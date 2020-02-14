@@ -1,13 +1,13 @@
-package com.example.desafioglobo.view.home
+package com.example.desafioglobo.view.inicio
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
-class HomeViewModel : ViewModel() {
+class InicioViewModel : ViewModel() {
 
     private val _text = MutableLiveData<String>().apply {
-        value = "This is home Fragment"
+        value = ""
     }
     val text: LiveData<String> = _text
 }
