@@ -1,22 +1,24 @@
-package com.example.desafioglobo.ListAdapter
+package com.example.desafioglobo.listadapter
 
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.content.Context
+import android.content.Intent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.ImageView
 import android.widget.TextView
 import com.example.desafioglobo.model.Artigos
-import android.graphics.BitmapFactory
-import android.util.Base64
 import android.widget.Toast
 import androidx.cardview.widget.CardView
+import androidx.core.content.ContextCompat.startActivity
 import com.example.desafioglobo.R
+import com.example.desafioglobo.view.detalhado.Detalhes
 import com.squareup.picasso.Picasso
 
 
-class ListArtigos(private val context: Activity, private val artigos: List<Artigos>)
+class ListArtigos(private val context: Activity,private val artigos: List<Artigos>)
     : ArrayAdapter<Artigos>(context, R.layout.item_artigo, artigos)  {
 
     @SuppressLint("ViewHolder", "InflateParams")
@@ -45,8 +47,14 @@ class ListArtigos(private val context: Activity, private val artigos: List<Artig
         }
 
         card.setOnClickListener {
-            Toast.makeText(context, "card",
-                Toast.LENGTH_SHORT).show()
+            val intent = Intent(context, Detalhes::class.java)
+            intent.putExtra("id", artigos[position].id)
+            intent.putExtra("titulo", artigos[position].titulo)
+            intent.putExtra("texto", artigos[position].texto)
+            intent.putExtra("autor", artigos[position].autor)
+            intent.putExtra("data", artigos[position].data)
+            intent.putExtra("imagens", artigos[position].imagens.toTypedArray())
+            context.startActivity(intent)
         }
 
         return registro

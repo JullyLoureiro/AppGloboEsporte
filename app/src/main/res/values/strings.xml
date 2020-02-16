@@ -1,10 +1,11 @@
 <resources>
     <string name="app_name">DesafioGlobo</string>
-    <string name="title_home">Globo Esporte</string>
+    <string name="title_home">Início</string>
     <string name="title_favorite">Favoritos</string>
     <string name="globo_esporte">Globo Esporte</string>
     <string name="autor">autor</string>
     <string name="data">data</string>
     <string name="titulo">titulo</string>
     <string name="link_api">http://www.mocky.io/v2/5e49770830000069008c2da5/</string>
+    <string name="title_activity_detalhes">Detalhes</string>
 </resources>
