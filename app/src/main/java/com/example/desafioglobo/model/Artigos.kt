@@ -4,6 +4,8 @@ import com.google.gson.annotations.SerializedName
 import java.sql.Blob
 
 data class Artigos(
+    @SerializedName("id")
+    var id : Int,
     @SerializedName("titulo")
     var titulo : String,
     @SerializedName("texto")

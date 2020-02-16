@@ -13,6 +13,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".TelaPrincipal"
+            android:theme="@style/AppTheme"
             android:label="@string/globo_esporte">
         </activity>
         <activity

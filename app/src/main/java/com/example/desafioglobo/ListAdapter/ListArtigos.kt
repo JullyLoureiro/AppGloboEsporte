@@ -10,6 +10,8 @@ import android.widget.TextView
 import com.example.desafioglobo.model.Artigos
 import android.graphics.BitmapFactory
 import android.util.Base64
+import android.widget.Toast
+import androidx.cardview.widget.CardView
 import com.example.desafioglobo.R
 import com.squareup.picasso.Picasso
 
@@ -25,6 +27,8 @@ class ListArtigos(private val context: Activity, private val artigos: List<Artig
         val titulo = registro.findViewById(R.id.titulo) as TextView
         val autor = registro.findViewById(R.id.autor) as TextView
         val imagem = registro.findViewById(R.id.image) as ImageView
+        val imafavoritegem = registro.findViewById(R.id.favorite) as ImageView
+        val card = registro.findViewById(R.id.card) as CardView
 
         val autorstring = "Por ${artigos[position].autor} em ${artigos[position].data}"
 
@@ -35,6 +39,15 @@ class ListArtigos(private val context: Activity, private val artigos: List<Artig
         titulo.text = artigos[position].titulo
         autor.text = autorstring
 
+        imafavoritegem.setOnClickListener {
+            Toast.makeText(context, "favorite",
+                Toast.LENGTH_SHORT).show()
+        }
+
+        card.setOnClickListener {
+            Toast.makeText(context, "card",
+                Toast.LENGTH_SHORT).show()
+        }
 
         return registro
     }

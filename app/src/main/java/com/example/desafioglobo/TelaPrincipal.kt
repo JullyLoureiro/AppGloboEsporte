@@ -1,6 +1,7 @@
 package com.example.desafioglobo
 
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
@@ -20,6 +21,8 @@ import retrofit2.Response
 
 
 class TelaPrincipal : AppCompatActivity() {
+
+    var lista: MutableList<Artigos> = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,8 +54,6 @@ class TelaPrincipal : AppCompatActivity() {
             }
 
             override fun onResponse(call: Call<List<Artigos>>, response: Response<List<Artigos>>) {
-
-                var lista: MutableList<Artigos> = ArrayList()
                 response.body()?.forEach {
                     lista.add(it)
                 }
@@ -67,5 +68,4 @@ class TelaPrincipal : AppCompatActivity() {
             }
         })
     }
-
 }
