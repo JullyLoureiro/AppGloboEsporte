@@ -32,6 +32,8 @@ class TelaPrincipal : AppCompatActivity() {
                 R.id.navigation_home, R.id.navigation_favorites
             )
         )
+
+
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
 

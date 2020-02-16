@@ -13,5 +13,5 @@ data class Artigos(
     @SerializedName("autor")
     var autor : String,
     @SerializedName("imagens")
-    var imagens : List<Blob>
+    var imagens : List<String>
 )

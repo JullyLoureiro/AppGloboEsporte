@@ -7,8 +7,12 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.ImageView
 import android.widget.TextView
-import com.example.desafioglobo.R
 import com.example.desafioglobo.model.Artigos
+import android.graphics.BitmapFactory
+import android.util.Base64
+import com.example.desafioglobo.R
+import com.squareup.picasso.Picasso
+
 
 class ListArtigos(private val context: Activity, private val artigos: List<Artigos>)
     : ArrayAdapter<Artigos>(context, R.layout.item_artigo, artigos)  {
@@ -20,14 +24,17 @@ class ListArtigos(private val context: Activity, private val artigos: List<Artig
 
         val titulo = registro.findViewById(R.id.titulo) as TextView
         val autor = registro.findViewById(R.id.autor) as TextView
-        val data = registro.findViewById(R.id.data) as TextView
+        val imagem = registro.findViewById(R.id.image) as ImageView
 
-        val autorstring = "Por: ${artigos[position].autor}"
-        val datastring = "Data: ${artigos[position].data}"
+        val autorstring = "Por ${artigos[position].autor} em ${artigos[position].data}"
+
+
+        val img = artigos[position].imagens[0]
+        Picasso.get().load(img).into(imagem)
 
         titulo.text = artigos[position].titulo
         autor.text = autorstring
-        data.text = datastring
+
 
         return registro
     }
