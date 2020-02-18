@@ -16,12 +16,14 @@ import kotlinx.android.synthetic.main.fragment_home.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import com.example.desafioglobo.utils.TransparentProgressDialog
 
 
 
 class TelaPrincipal : AppCompatActivity() {
 
     var lista: ArrayList<Artigos> = ArrayList()
+    private var pd: TransparentProgressDialog? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,7 +41,18 @@ class TelaPrincipal : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
 
-        carregarArtigos()
+        pd = TransparentProgressDialog(
+            this,
+            R.drawable.loading,
+            ""
+        )
+        pd!!.show()
+
+        Thread(Runnable {
+            Thread.sleep(3000)
+            carregarArtigos()
+        }).start()
+
     }
 
     fun carregarArtigos(){
@@ -50,6 +63,7 @@ class TelaPrincipal : AppCompatActivity() {
         callback.enqueue(object : Callback<List<Artigos>> {
             override fun onFailure(call: Call<List<Artigos>>, t: Throwable) {
                 Toast.makeText(baseContext, t.message, Toast.LENGTH_SHORT).show()
+                pd!!.dismiss()
             }
 
             override fun onResponse(call: Call<List<Artigos>>, response: Response<List<Artigos>>) {
@@ -63,7 +77,7 @@ class TelaPrincipal : AppCompatActivity() {
                 listView.setOnItemClickListener(){adapterView, view, position, id ->
                     Toast.makeText(this@TelaPrincipal, "Click", Toast.LENGTH_LONG).show()
                 }
-
+                pd!!.dismiss()
             }
         })
     }
