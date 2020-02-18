@@ -21,7 +21,7 @@ import retrofit2.Response
 
 class TelaPrincipal : AppCompatActivity() {
 
-    var lista: MutableList<Artigos> = ArrayList()
+    var lista: ArrayList<Artigos> = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

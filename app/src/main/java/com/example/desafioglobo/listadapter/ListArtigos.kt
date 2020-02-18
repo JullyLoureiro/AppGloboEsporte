@@ -53,7 +53,7 @@ class ListArtigos(private val context: Activity,private val artigos: List<Artigo
             intent.putExtra("texto", artigos[position].texto)
             intent.putExtra("autor", artigos[position].autor)
             intent.putExtra("data", artigos[position].data)
-            intent.putExtra("imagens", artigos[position].imagens.toTypedArray())
+            intent.putStringArrayListExtra("imagens", artigos[position].imagens)
             context.startActivity(intent)
         }
 
