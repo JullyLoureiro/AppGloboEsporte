@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.database.Cursor
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
@@ -14,6 +15,7 @@ import android.widget.Toast
 import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat.startActivity
 import com.example.desafioglobo.R
+import com.example.desafioglobo.controller.ArtigoDBHelper
 import com.example.desafioglobo.view.detalhado.Detalhes
 import com.squareup.picasso.Picasso
 
@@ -41,9 +43,24 @@ class ListArtigos(private val context: Activity,private val artigos: List<Artigo
         titulo.text = artigos[position].titulo
         autor.text = autorstring
 
+        val dbHandler = ArtigoDBHelper(context, null)
+        val c : Cursor? = dbHandler.verificaFavorito(artigos[position].id)
+        if(c!!.moveToFirst()) {
+            imafavoritegem.setImageResource(R.drawable.favorite_selected)
+        }else{
+            imafavoritegem.setImageResource(R.drawable.favorite)
+        }
+
         imafavoritegem.setOnClickListener {
-            Toast.makeText(context, "favorite",
-                Toast.LENGTH_SHORT).show()
+
+            val cursor : Cursor? = dbHandler.verificaFavorito(artigos[position].id)
+            if(cursor!!.moveToFirst()) {
+                dbHandler.removeFavorito(artigos[position].id.toString())
+                imafavoritegem.setImageResource(R.drawable.favorite)
+            }else{
+                dbHandler.adicionaArtigoFavorito(artigos[position].id)
+                imafavoritegem.setImageResource(R.drawable.favorite_selected)
+            }
         }
 
         card.setOnClickListener {
