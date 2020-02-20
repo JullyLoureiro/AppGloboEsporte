@@ -1,30 +1,14 @@
 package com.example.desafioglobo
 
 import android.os.Bundle
-import android.widget.Toast
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
-import com.example.desafioglobo.listadapter.ListArtigos
-import com.example.desafioglobo.model.Artigos
-import com.example.desafioglobo.utils.NetworkUtils
-import com.example.desafioglobo.utils.endpoint
-import kotlinx.android.synthetic.main.fragment_home.*
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import com.example.desafioglobo.utils.TransparentProgressDialog
-
-
 
 class TelaPrincipal : AppCompatActivity() {
-
-    var lista: ArrayList<Artigos> = ArrayList()
-    private var pd: TransparentProgressDialog? = null
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -41,44 +25,6 @@ class TelaPrincipal : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
 
-        pd = TransparentProgressDialog(
-            this,
-            R.drawable.loading,
-            ""
-        )
-        pd!!.show()
-
-        Thread(Runnable {
-            Thread.sleep(3000)
-            carregarArtigos()
-        }).start()
-
     }
 
-    fun carregarArtigos(){
-        val retrofit = NetworkUtils.getRetrofitInstance(getString(R.string.link_api))
-        val endpoint = retrofit.create(endpoint::class.java)
-        val callback = endpoint.getArtigos()
-
-        callback.enqueue(object : Callback<List<Artigos>> {
-            override fun onFailure(call: Call<List<Artigos>>, t: Throwable) {
-                Toast.makeText(baseContext, t.message, Toast.LENGTH_SHORT).show()
-                pd!!.dismiss()
-            }
-
-            override fun onResponse(call: Call<List<Artigos>>, response: Response<List<Artigos>>) {
-                response.body()?.forEach {
-                    lista.add(it)
-                }
-
-                val myListAdapter = ListArtigos(this@TelaPrincipal,lista)
-                listView.adapter = myListAdapter
-
-                listView.setOnItemClickListener(){adapterView, view, position, id ->
-                    Toast.makeText(this@TelaPrincipal, "Click", Toast.LENGTH_LONG).show()
-                }
-                pd!!.dismiss()
-            }
-        })
-    }
 }

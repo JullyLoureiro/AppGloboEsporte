@@ -8,4 +8,5 @@
     <string name="titulo">titulo</string>
     <string name="link_api">http://www.mocky.io/v2/5e4d6ba92d0000369ec0df41/</string>
     <string name="title_activity_detalhes">Detalhes</string>
+    <string name="compartilhar">Compartilhar</string>
 </resources>

@@ -5,15 +5,15 @@ import java.sql.Blob
 
 data class Artigos(
     @SerializedName("id")
-    var id : Int,
+    var id : Int = 0,
     @SerializedName("titulo")
-    var titulo : String,
+    var titulo : String = "",
     @SerializedName("texto")
-    var texto : String,
+    var texto : String = "",
     @SerializedName("data")
-    var data : String,
+    var data : String = "",
     @SerializedName("autor")
-    var autor : String,
+    var autor : String = "",
     @SerializedName("imagens")
-    var imagens : ArrayList<String>
+    var imagens : ArrayList<String> = arrayListOf()
 )
