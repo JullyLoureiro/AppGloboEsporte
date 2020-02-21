@@ -6,7 +6,7 @@
     <string name="autor">autor</string>
     <string name="data">data</string>
     <string name="titulo">titulo</string>
-    <string name="link_api">http://www.mocky.io/v2/5e4d6ba92d0000369ec0df41/</string>
+    <string name="link_api"> http://www.mocky.io/v2/5e4fdef53000009000226c2d/</string>
     <string name="title_activity_detalhes">Detalhes</string>
     <string name="compartilhar">Compartilhar</string>
     <string name="buscar">Buscar</string>
