@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/action_filtrar"
+        android:orderInCategory="1"
+        android:title="Filtro"
+        android:onClick="filtrar"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_limpar"
+        android:orderInCategory="1"
+        android:title="Limpar Filtro"
+        android:visible="false"
+        android:onClick="limparFiltro"
+        app:showAsAction="never" />
+
+</menu>

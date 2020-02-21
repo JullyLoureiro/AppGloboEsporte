@@ -1,59 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:id="@+id/root_layout"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".view.detalhado.Detalhes"
-    tools:showIn="@layout/activity_detalhes">
+    tools:showIn="@layout/activity_detalhes"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
 
-
-    <TextView
-        android:id="@+id/titulo"
-        android:padding="10dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:textColor="#000000"
-        android:textStyle="bold"
-        android:textSize="23sp" />
-
-    <TextView
-        android:id="@+id/autor"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="14sp"
-        android:padding="10dp"
-        app:layout_constraintStart_toStartOf="@+id/titulo"
-        app:layout_constraintTop_toBottomOf="@+id/titulo"/>
-
-    <TextView
-        android:id="@+id/data"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:textSize="14sp"
-        app:layout_constraintStart_toEndOf="@+id/autor"
-        app:layout_constraintTop_toBottomOf="@+id/titulo"/>
-
-    <TextView
-        android:id="@+id/texto"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:textSize="14sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/autor" />
-
-    <androidx.viewpager.widget.ViewPager
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="350dp"
-        android:layout_marginTop="30dp"
-        app:layout_constraintTop_toBottomOf="@+id/texto"
-        android:id="@+id/viewpager">
-    </androidx.viewpager.widget.ViewPager>
+        android:layout_height="wrap_content">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/titulo"
+            android:padding="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:textColor="#000000"
+            android:textStyle="bold"
+            android:textSize="23sp" />
+
+        <TextView
+            android:id="@+id/autor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:padding="10dp"
+            app:layout_constraintStart_toStartOf="@+id/titulo"
+            app:layout_constraintTop_toBottomOf="@+id/titulo"/>
+
+        <TextView
+            android:id="@+id/data"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:textSize="14sp"
+            app:layout_constraintStart_toEndOf="@+id/autor"
+            app:layout_constraintTop_toBottomOf="@+id/titulo"/>
+
+        <TextView
+            android:id="@+id/texto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/autor" />
+
+        <androidx.viewpager.widget.ViewPager
+            android:layout_width="match_parent"
+            android:layout_height="350dp"
+            android:layout_marginTop="30dp"
+            app:layout_constraintTop_toBottomOf="@+id/texto"
+            android:id="@+id/viewpager">
+        </androidx.viewpager.widget.ViewPager>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

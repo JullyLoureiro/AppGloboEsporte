@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import com.example.desafioglobo.R
+import com.example.desafioglobo.TelaPrincipal
 import com.example.desafioglobo.listadapter.ListArtigos
 import com.example.desafioglobo.model.Artigos
 import com.example.desafioglobo.utils.NetworkUtils
@@ -40,23 +41,19 @@ class InicioFragment : Fragment() {
         var busca : String? = ""
         try{
             busca = getActivity()!!.getIntent().getExtras()!!.getString("busca")
-        }catch (e : Exception){
-
-        }
+        }catch (e : Exception){}
 
         Thread(Runnable {
             Thread.sleep(1000)
-            carregarArtigos(activity, busca)
+            carregarArtigos(activity, busca, TelaPrincipal.filtroData)
         }).start()
-
-
 
 
         val root = inflater.inflate(R.layout.fragment_home, container, false)
         return root
     }
 
-    fun carregarArtigos(context : FragmentActivity?, busca : String?){
+    fun carregarArtigos(context : FragmentActivity?, busca : String?, filtroData: String?){
         val retrofit = NetworkUtils.getRetrofitInstance(getString(R.string.link_api))
         val endpoint = retrofit.create(Endpoint::class.java)
         val callback = endpoint.getArtigos()
@@ -70,12 +67,14 @@ class InicioFragment : Fragment() {
             override fun onResponse(call: Call<List<Artigos>>, response: Response<List<Artigos>>) {
                 response.body()?.forEach {
                     if(busca.equals("")|| it.titulo.contains(busca!!, false)){
-                        lista.add(it)
+                        if(filtroData.equals("") || filtroData.equals(it.data)) {
+                            lista.add(it)
+                        }
                     }
                     listaSugestao.add(it.titulo)
                 }
 
-                val myListAdapter = ListArtigos(context,lista, listaSugestao)
+                val myListAdapter = ListArtigos(context,lista, listaSugestao, busca)
                 listView.adapter = myListAdapter
                 pd!!.dismiss()
             }

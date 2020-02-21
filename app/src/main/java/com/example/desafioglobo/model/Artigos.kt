@@ -14,6 +14,8 @@ data class Artigos(
     var data : String = "",
     @SerializedName("autor")
     var autor : String = "",
+    @SerializedName("link")
+    var link : String = "",
     @SerializedName("imagens")
     var imagens : ArrayList<String> = arrayListOf()
 )

@@ -76,7 +76,8 @@ class ListFavoritos(private val context: Activity?,private val artigos: List<Art
                 pm.getPackageInfo("com.whatsapp", PackageManager.GET_META_DATA)
                 waIntent.setPackage("com.whatsapp")
 
-                waIntent.putExtra(Intent.EXTRA_TEXT, artigos[position].titulo)
+                var stringwpp = "${artigos[position].titulo}  - Acesse em: ${artigos[position].link}"
+                waIntent.putExtra(Intent.EXTRA_TEXT, stringwpp)
                 context.startActivity(Intent.createChooser(waIntent, context.getString(R.string.compartilhar)))
 
             } catch (e : PackageManager.NameNotFoundException ) {

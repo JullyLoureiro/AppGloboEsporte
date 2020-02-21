@@ -4,8 +4,6 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.database.Cursor
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
@@ -16,13 +14,12 @@ import androidx.fragment.app.FragmentActivity
 import com.example.desafioglobo.R
 import com.example.desafioglobo.controller.ArtigoController
 import com.example.desafioglobo.view.detalhado.Detalhes
-import com.example.desafioglobo.view.inicio.InicioFragment
 import com.squareup.picasso.Picasso
 import android.widget.ArrayAdapter
 import com.example.desafioglobo.TelaPrincipal
 
 
-class ListArtigos(private val context: FragmentActivity?, private val artigos: List<Artigos>, private val sugestoes: List<String>)
+class ListArtigos(private val context: FragmentActivity?, private val artigos: List<Artigos>, private val sugestoes: List<String>, private val buscaString: String?)
     : ArrayAdapter<Artigos>(context!!, R.layout.item_artigo, artigos)  {
 
     @SuppressLint("ViewHolder", "InflateParams")
@@ -55,6 +52,7 @@ class ListArtigos(private val context: FragmentActivity?, private val artigos: L
         busca.setAdapter(adapter)
         busca.setThreshold(1)
 
+        busca.setText(buscaString)
 
         val img = artigos[position].imagens[0]
         Picasso.get().load(img).into(imagem)
@@ -101,7 +99,8 @@ class ListArtigos(private val context: FragmentActivity?, private val artigos: L
                 pm.getPackageInfo("com.whatsapp", PackageManager.GET_META_DATA)
                 waIntent.setPackage("com.whatsapp")
 
-                waIntent.putExtra(Intent.EXTRA_TEXT, artigos[position].titulo)
+                var stringwpp = "${artigos[position].titulo}  - Acesse em: ${artigos[position].link}"
+                waIntent.putExtra(Intent.EXTRA_TEXT, stringwpp)
                 context.startActivity(Intent.createChooser(waIntent, context.getString(R.string.compartilhar)))
 
             } catch (e : PackageManager.NameNotFoundException ) {
