@@ -17,10 +17,12 @@ import kotlinx.android.synthetic.main.fragment_home.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.lang.Exception
 
 class InicioFragment : Fragment() {
 
     var lista: ArrayList<Artigos> = ArrayList()
+    var listaSugestao: ArrayList<String> = ArrayList()
     private var pd: TransparentProgressDialog? = null
 
     override fun onCreateView(
@@ -35,16 +37,26 @@ class InicioFragment : Fragment() {
         )
         pd!!.show()
 
+        var busca : String? = ""
+        try{
+            busca = getActivity()!!.getIntent().getExtras()!!.getString("busca")
+        }catch (e : Exception){
+
+        }
+
         Thread(Runnable {
             Thread.sleep(1000)
-            carregarArtigos(getActivity())
+            carregarArtigos(activity, busca)
         }).start()
+
+
+
 
         val root = inflater.inflate(R.layout.fragment_home, container, false)
         return root
     }
 
-    fun carregarArtigos(context : FragmentActivity?){
+    fun carregarArtigos(context : FragmentActivity?, busca : String?){
         val retrofit = NetworkUtils.getRetrofitInstance(getString(R.string.link_api))
         val endpoint = retrofit.create(Endpoint::class.java)
         val callback = endpoint.getArtigos()
@@ -57,10 +69,13 @@ class InicioFragment : Fragment() {
 
             override fun onResponse(call: Call<List<Artigos>>, response: Response<List<Artigos>>) {
                 response.body()?.forEach {
-                    lista.add(it)
+                    if(busca.equals("")|| it.titulo.contains(busca!!, false)){
+                        lista.add(it)
+                    }
+                    listaSugestao.add(it.titulo)
                 }
 
-                val myListAdapter = ListArtigos(context,lista)
+                val myListAdapter = ListArtigos(context,lista, listaSugestao)
                 listView.adapter = myListAdapter
                 pd!!.dismiss()
             }

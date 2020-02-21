@@ -1,25 +1,28 @@
 package com.example.desafioglobo.listadapter
 
 import android.annotation.SuppressLint
-import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.database.Cursor
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
-import android.widget.ImageView
-import android.widget.TextView
-import android.widget.Toast
+import android.view.inputmethod.EditorInfo
+import android.widget.*
 import com.example.desafioglobo.model.Artigos
 import androidx.cardview.widget.CardView
+import androidx.fragment.app.FragmentActivity
 import com.example.desafioglobo.R
 import com.example.desafioglobo.controller.ArtigoController
 import com.example.desafioglobo.view.detalhado.Detalhes
+import com.example.desafioglobo.view.inicio.InicioFragment
 import com.squareup.picasso.Picasso
+import android.widget.ArrayAdapter
+import com.example.desafioglobo.TelaPrincipal
 
 
-class ListArtigos(private val context: Activity?,private val artigos: List<Artigos>)
+class ListArtigos(private val context: FragmentActivity?, private val artigos: List<Artigos>, private val sugestoes: List<String>)
     : ArrayAdapter<Artigos>(context!!, R.layout.item_artigo, artigos)  {
 
     @SuppressLint("ViewHolder", "InflateParams")
@@ -33,8 +36,24 @@ class ListArtigos(private val context: Activity?,private val artigos: List<Artig
         val imafavoritegem = registro.findViewById(R.id.favorite) as ImageView
         val share = registro.findViewById(R.id.share) as ImageView
         val card = registro.findViewById(R.id.card) as CardView
+        val logo = registro.findViewById(R.id.logo) as ImageView
+        val busca = registro.findViewById(R.id.busca) as AutoCompleteTextView
 
         val autorstring = "Por ${artigos[position].autor} em ${artigos[position].data}"
+
+       if(position == 0){
+           logo.visibility = View.VISIBLE
+           busca.visibility = View.VISIBLE
+       }else {
+           logo.visibility = View.GONE
+           busca.visibility = View.GONE
+       }
+
+
+        val adapter : ArrayAdapter<String> = ArrayAdapter(context, android.R.layout.select_dialog_item, sugestoes)
+
+        busca.setAdapter(adapter)
+        busca.setThreshold(1)
 
 
         val img = artigos[position].imagens[0]
@@ -43,12 +62,22 @@ class ListArtigos(private val context: Activity?,private val artigos: List<Artig
         titulo.text = artigos[position].titulo
         autor.text = autorstring
 
-        val dbHandler = ArtigoController(context!!, null)
+        val dbHandler = ArtigoController(context, null)
         val c : Cursor? = dbHandler.verificaFavorito(artigos[position].id)
         if(c!!.moveToFirst()) {
             imafavoritegem.setImageResource(R.drawable.favorite_selected)
         }else{
             imafavoritegem.setImageResource(R.drawable.favorite)
+        }
+
+        busca.setOnEditorActionListener { _, actionId, _ ->
+            if (actionId == EditorInfo.IME_ACTION_DONE || actionId == EditorInfo.IME_ACTION_NEXT || actionId == EditorInfo.IME_ACTION_GO) {
+                val intent = Intent(context, TelaPrincipal::class.java)
+                intent.putExtra("busca", busca.text.toString())
+                context.startActivity(intent)
+                context.finish()
+            }
+            true
         }
 
         imafavoritegem.setOnClickListener {
