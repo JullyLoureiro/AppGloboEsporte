@@ -33,8 +33,6 @@ class ListImageSlider(private val context: Context, val images: ArrayList<String
         val img = images[position]
         Picasso.get().load(img).into(view.imageView_slide)
 
-        view.texto.text = "${position}/${images.size}"
-
         val vp = container as ViewPager
         vp.addView(view, 0)
         return view

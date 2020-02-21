@@ -7,6 +7,15 @@ import com.example.desafioglobo.R
 import com.example.desafioglobo.listadapter.ListImageSlider
 import kotlinx.android.synthetic.main.content_detalhes.*
 import androidx.appcompat.widget.Toolbar
+import com.google.android.material.tabs.TabLayout
+import androidx.viewpager.widget.ViewPager
+import androidx.core.app.ComponentActivity
+import androidx.core.app.ComponentActivity.ExtraData
+import androidx.core.content.ContextCompat.getSystemService
+import android.icu.lang.UCharacter.GraphemeClusterBreak.T
+import me.relex.circleindicator.CircleIndicator
+
+
 
 class Detalhes : AppCompatActivity() {
     var listaimagens : ArrayList<String> = arrayListOf()
@@ -27,11 +36,16 @@ class Detalhes : AppCompatActivity() {
         texto.text = intent.getStringExtra("texto")
         listaimagens = intent.getStringArrayListExtra("imagens")
         imageSliderImplementation()
+
+
     }
 
     private fun imageSliderImplementation() {
         var adapter = ListImageSlider(this, listaimagens)
         viewpager.adapter = adapter
+
+        val indicator = findViewById(R.id.indicator) as CircleIndicator
+        indicator.setViewPager(viewpager)
     }
 
 }
