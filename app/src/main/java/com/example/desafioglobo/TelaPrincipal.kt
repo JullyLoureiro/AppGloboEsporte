@@ -22,8 +22,7 @@ import androidx.core.app.ComponentActivity
 import androidx.core.app.ComponentActivity.ExtraData
 import androidx.core.content.ContextCompat.getSystemService
 import android.icu.lang.UCharacter.GraphemeClusterBreak.T
-
-
+import androidx.navigation.ui.onNavDestinationSelected
 
 
 class TelaPrincipal : AppCompatActivity() {
@@ -32,13 +31,30 @@ class TelaPrincipal : AppCompatActivity() {
     }
 
     private var limpar : MenuItem? = null
-
+    private var filtro : MenuItem? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         val navView: BottomNavigationView = findViewById(R.id.nav_view)
+
+        navView.setOnNavigationItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.navigation_home -> {
+                    filtro!!.setVisible(true)
+                    limpar!!.setVisible(true)
+                }
+                R.id.navigation_favorites -> {
+                    filtro!!.setVisible(false)
+                    limpar!!.setVisible(false)
+                }
+
+            }
+            return@setOnNavigationItemSelectedListener true
+        }
+
         val navController = findNavController(R.id.nav_host_fragment)
+
         val appBarConfiguration = AppBarConfiguration(
             setOf(
                 R.id.navigation_home, R.id.navigation_favorites
@@ -52,6 +68,7 @@ class TelaPrincipal : AppCompatActivity() {
     override  fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.actionbar_artigo, menu)
         limpar = menu.findItem(R.id.action_limpar)
+        filtro = menu.findItem(R.id.action_filtrar)
         if(filtroData.equals("")){
             limpar!!.setVisible(false)
         }else{
